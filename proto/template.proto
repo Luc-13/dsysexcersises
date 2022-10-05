@@ -15,7 +15,7 @@ message Amount{
 }
 
 message Ack{
-    int64 time = 1;
+    string time = 1;
 }
 
 message Msg{
