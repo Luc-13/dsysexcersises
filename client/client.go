@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -90,22 +89,16 @@ func parseInput() {
 		}
 
 		//Convert string to int64, return error if the int is larger than 32bit or not a number
-		val, err := strconv.ParseInt(input, 10, 64)
-		if err != nil {
-			if input == "hi" {
-				sayHi()
-			}
-			continue
-		}
+		val := time.Now().String()
 		incrementVal(val)
 	}
 }
 
-func incrementVal(val int64) {
+func incrementVal(val string) {
 	//create amount type
 	amount := &gRPC.Amount{
 		Name: *clientsName,
-		Val:  val, //cast from int to int32
+		Time: val, //cast from int to int32
 	}
 
 	//Make gRPC call to server with amount, and recieve acknowlegdement back.
@@ -116,8 +109,8 @@ func incrementVal(val int64) {
 	}
 
 	// check if the server has handled the request correctly
-	if ack.NewVal >= val {
-		fmt.Printf("Success, the new value is now %d\n", ack.NewVal)
+	if ack.Time >= val {
+		fmt.Printf("Success, the new value is now %d\n", ack.Time)
 	} else {
 		// something could be added here to handle the error
 		// but hopefully this will never be reached

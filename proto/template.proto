@@ -12,6 +12,7 @@
 message Amount{
     string name = 1;
     int64 val = 2;
+    string time = 3;
 }
 
 message Ack{

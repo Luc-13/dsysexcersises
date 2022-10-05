@@ -73,9 +73,8 @@ func launchServer() {
 func (s *Server) Increase(ctx context.Context, Amount *gRPC.Amount) (*gRPC.Ack, error) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
-	temp := t.Now()
 	s.incrementValue += int64(Amount.GetVal())
-	return &gRPC.Ack{NewVal: t.Now().String()}, nil
+	return &gRPC.Ack{Time: t.Now().String()}, nil
 }
 
 func (s *Server) Greet(msgStream gRPC.Temp_GreetServer) error {
