@@ -1,3 +1,28 @@
  syntax = "proto3";
  option go_package = "github.com/Luc-13/dsysexcersises/proto";
  package proto;
+
+ service temp
+{
+    rpc Increase(Amount) returns (Ack);
+
+    rpc Greet(stream Msg) returns (MsgBack);
+}
+
+message Amount{
+    string name = 1;
+    int64 val = 2;
+}
+
+message Ack{
+    int64 time = 1;
+}
+
+message Msg{
+    string name = 1;
+    string msg = 2;
+}
+
+message MsgBack{
+    string msg = 1;
+}
